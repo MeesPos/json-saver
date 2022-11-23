@@ -39,11 +39,9 @@ class ImportJson extends Command
                 $age = Carbon::parse($dateOfBirth)->age;
 
                 if (($age >= 18 && $age <= 65) || is_null($age)) {
-                    // Er vanuit gaan dat het e-mailadres uniek moet zijn, zorgt "updateOrCreate" ervoor dat er geen duplicate records komen.
+                    // Met "UpdateOrCreate" zorgen we ervoor dat er geen duplicate records in de database komt.
                     $personModel = Person::query()
                         ->updateOrCreate([
-                            'email' => $person->email
-                        ], [
                             'name' => $person->name,
                             'address' => $person->address,
                             'checked' => $person->checked,
@@ -54,17 +52,17 @@ class ImportJson extends Command
                             'account' => $person->account
                         ]);
 
-                    // Er vanuit gaan dat het creditcardnummer uniek moet zijn, zorgt "updateOrCreate" ervoor dat er geen duplicate records komen.
+                    // Met "UpdateOrCreate" zorgen we ervoor dat er geen duplicate records in de database komt.
                     Creditcard::query()
                         ->updateOrCreate([
-                            'number' => $person->credit_card->number
-                        ], [
                             'person_id' => $personModel->getKey(),
                             'type' => $person->credit_card->type,
                             'number' => $person->credit_card->number,
                             'name' => $person->credit_card->name,
                             'expiration_date' => $person->credit_card->expirationDate
                         ]);
+
+                    $this->info($person->name . ' imported');
                 }
             }
 
