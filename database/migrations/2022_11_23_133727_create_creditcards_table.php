@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('creditcards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')
+                  ->unique()
                   ->references('id')
                   ->on('persons')
                   ->onDelete('cascade');
