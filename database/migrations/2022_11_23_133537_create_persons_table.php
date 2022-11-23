@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('address');
+            $table->boolean('checked');
             $table->text('description');
             $table->string('interest')->nullable();
             $table->date('date_of_birth')->nullable();
