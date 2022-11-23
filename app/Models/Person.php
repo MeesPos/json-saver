@@ -11,6 +11,8 @@ class Person extends Model
 
     protected $guarded = [];
 
+    protected $table = 'persons';
+
     /**
      * Get the phone associated with the person.
      */
