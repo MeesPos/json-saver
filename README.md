@@ -75,7 +75,7 @@ niet toegevoegd.
 - Verwerk alleen	records	waarvoor	geldt	dat	de	leeftijd	tussen	de	18	en	65	ligt
   (of	onbekend	is).
 
-Ik heb eerst de leeftijd van de persoon berekend doormiddel van Laravel Carbon. Die berekent hoeveel tijd er tussen
+Ik heb eerst de leeftijd van de persoon berekend door middel van Laravel Carbon. Die berekent hoeveel tijd er tussen
 vandaag zit en de dag dat diegene is geboren. Daarna heb ik een if statement aangemaakt die checkt of de leeftijd niet
 onder de 18 zit en ook niet boven de 65 zit. Als dat niet zo is, gaat het door in het proces. Ook als de geboortedatum
 onbekend is (oftewel ```null```), gaat het proces door. Deze code kan je vinden in:
@@ -93,7 +93,7 @@ Dit los je op door de memory_limit in je ```php.ini``` te verhogen zodat de serv
 bestand.
 
 Uiteraard zou het proces ook langer duren voordat alles is geimporteerd. Maar omdat het een command is, maakt het niet
-mocht er een frontend website staan. De website blijft gewoon normaal draaien terwijl dit gedaan word.
+uit voor de gebruiker van de website. De website blijft gewoon normaal draaien terwijl dit gedaan word.
 
 - Is	het	proces	makkelijk	in	te	zetten	voor	een	XML- of	CSV-bestand	met	vergelijkbare
   content?
@@ -105,18 +105,33 @@ de data dus omgeschreven moeten worden
 - Stel	dat	alleen	records	moeten	worden	verwerkt	waarvoor	geldt	dat	het	creditcardnummer drie	
 opeenvolgende	zelfde	cijfers	bevat,	hoe	zou	je	dat	aanpakken?
 
-Eerst zou ik de laatste 3 cijfers van het creditcard pakken. Dit doe ik op de volgende manier:
+Eerst convert ik de string naar een array, zodat ik elke karakter los heb. Daarna ga ik de values bijelkaar tellen en
+kijken hoeveel keer een cijfer voor komt.
 ```bash
-$creditcardNumber = '2391239231239222';
+$creditcardNumber = '13523643';
 
-$newString = substr($creditcardNumber, -3);
+$array = str_split($creditcardNumber);
+
+$count = array_count_values($array);
 ```
 
-Daarna check ik of de 3 laatste cijfers gelijk zijn door middel van een Regex. Dit zet ik dan in een if statement.Dit
-doe ik dan op de volgende manier:
+De result van ```$count``` is dan:
 ```bash
-if (preg_match('/^(.)\1*$/u', $newString)) {
+array:6 [
+  1 => 1
+  3 => 3
+  5 => 1
+  2 => 1
+  6 => 1
+  4 => 1
+]
+```
+
+Daarna check ik of een value in de array 3 is, dit zet ik dan in een if statement.
+```bash
+if (in_array(3, $count)) {
   ...
 }
 ```
-De betekenis achter de regex kan je hier vinden: https://regex101.com/r/HUXNyy/1
+Nu heb ik gechecked of er een karakter 3 is, als dat niet is word de code niet gerund van het opslaan. En als het
+wel zo is word de code wel gerund.
