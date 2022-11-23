@@ -21,7 +21,7 @@ return new class extends Migration
                   ->on('persons')
                   ->onDelete('cascade');
             $table->string('type');
-            $table->string('number');
+            $table->string('number')->unique();
             $table->string('name');
             $table->string('expiration_date');
             $table->timestamps();

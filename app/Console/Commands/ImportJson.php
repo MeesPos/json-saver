@@ -41,7 +41,7 @@ class ImportJson extends Command
                 if (($age >= 18 && $age <= 65) || is_null($age)) {
                     $personModel = Person::query()
                         ->updateOrCreate([
-                            'account' => $person->account
+                            'email' => $person->email
                         ], [
                             'name' => $person->name,
                             'address' => $person->address,
