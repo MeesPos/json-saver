@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('interest');
-            $table->date('date_of_birth');
+            $table->string('interest')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('email');
             $table->string('account');
             $table->timestamps();
