@@ -1,4 +1,4 @@
-## automatic-json-saver
+## json-saver
 
 ### Installation
 #### First time Setup
