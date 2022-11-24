@@ -4,7 +4,7 @@
 #### First time Setup
 ```bash
 # Clone the repository to your device.
-git clone git@github.com:MeesPos/automatic-json-saver.git
+git clone git@github.com:MeesPos/json-saver.git
 
 # Install composer packages with
 composer install
