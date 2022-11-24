@@ -24,10 +24,10 @@ class ImportJson extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return \Illuminate\Foundation\Bus\PendingDispatch
      */
     public function handle()
     {
-        ImportJsonJob::dispatch();
+        return ImportJsonJob::dispatch();
     }
 }
