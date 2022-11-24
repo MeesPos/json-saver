@@ -19,11 +19,11 @@ class ImportJson implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * Create a new job instance.
+     * Execute the job.
      *
      * @return void
      */
-    public function __construct()
+    public function handle()
     {
         $file = 'challenge.json';
 
@@ -35,7 +35,7 @@ class ImportJson implements ShouldQueue
                     $dateOfBirth = date('Y-m-d', strtotime($person->date_of_birth));
                     $age = Carbon::parse($dateOfBirth)->age;
 
-                    if (($age >= 18 && $age <= 65) || is_null($age) ) {
+                    if (($age >= 18 && $age <= 65) || is_null($age)) {
                         $personModel = Person::query()
                             ->create([
                                 'name' => $person->name,
@@ -64,15 +64,5 @@ class ImportJson implements ShouldQueue
 
             Cache::delete($file . '-index');
         }
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        //
     }
 }
